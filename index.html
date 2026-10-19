@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eManaratulQur'an — Sistem Informasi Pesantren</title>
+  <meta name="description" content="Sistem Informasi Manajemen Pondok Pesantren Manaratul Qur'an">
+  <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1Q-vMQhLnagoUTztxhyT7Jq2gxT7Oq1cv">
+  
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0D3B26;
+    }
+    
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    /* Loader saat iframe dimuat */
+    #loader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0D3B26 0%, #125C33 50%, #1F8A52 100%);
+      z-index: 9999;
+      transition: opacity 0.4s ease;
+      font-family: system-ui, -apple-system, sans-serif;
+      color: #fff;
+    }
+    #loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #loader img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.3));
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    #loader .name {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+    }
+    #loader .sub {
+      font-size: 11px;
+      color: #C9A24A;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+    #loader .spinner {
+      margin-top: 24px;
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(255,255,255,0.2);
+      border-top-color: #C9A24A;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader">
+    <img src="https://lh3.googleusercontent.com/d/1Q-vMQhLnagoUTztxhyT7Jq2gxT7Oq1cv" alt="Logo">
+    <div class="name">eManaratulQur'an</div>
+    <div class="sub">Sistem Informasi</div>
+    <div class="spinner"></div>
+  </div>
+
+  <!-- GANTI URL DI BAWAH DENGAN URL WEB APP ANDA -->
+  <iframe 
+    id="appFrame"
+    src="https://script.google.com/macros/s/AKfycb.../exec"
+    allow="fullscreen; clipboard-read; clipboard-write"
+    referrerpolicy="no-referrer-when-downgrade"
+    onload="document.getElementById('loader').classList.add('hidden');">
+  </iframe>
+
+</body>
+</html>
