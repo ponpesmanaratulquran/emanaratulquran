@@ -2,11 +2,20 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>eManaratulQur'an — Sistem Informasi Pesantren</title>
   <meta name="description" content="Sistem Informasi Manajemen Pondok Pesantren Manaratul Qur'an">
-  <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1Q-vMQhLnagoUTztxhyT7Jq2gxT7Oq1cv">
-  
+
+  <!-- ===== PWA ===== -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1F8A52">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="eManaratulQur'an">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="icon" type="image/png" href="./icon-192.png">
+
   <style>
     html, body {
       margin: 0;
@@ -16,15 +25,14 @@
       overflow: hidden;
       background: #0D3B26;
     }
-    
+
     iframe {
       display: block;
       width: 100%;
       height: 100%;
       border: none;
     }
-    
-    /* Loader saat iframe dimuat */
+
     #loader {
       position: fixed;
       inset: 0;
@@ -84,20 +92,29 @@
 <body>
 
   <div id="loader">
-    <img src="https://lh3.googleusercontent.com/d/1Q-vMQhLnagoUTztxhyT7Jq2gxT7Oq1cv" alt="Logo">
+    <img src="./icon-512.png" alt="Logo">
     <div class="name">eManaratulQur'an</div>
     <div class="sub">Sistem Informasi</div>
     <div class="spinner"></div>
   </div>
 
-  <!-- GANTI URL DI BAWAH DENGAN URL WEB APP ANDA -->
-  <iframe 
+  <iframe
     id="appFrame"
     src="https://script.google.com/macros/s/AKfycbzW-Lj0CiMrCh2qTTIsHCRricsk_Fx5feGohiYUMP1Rkg4majC8-N3ClBrsGfkA9XoIRQ/exec"
     allow="fullscreen; clipboard-read; clipboard-write"
     referrerpolicy="no-referrer-when-downgrade"
     onload="document.getElementById('loader').classList.add('hidden');">
   </iframe>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => {
+          console.warn('Service Worker gagal didaftarkan:', err);
+        });
+      });
+    }
+  </script>
 
 </body>
 </html>
