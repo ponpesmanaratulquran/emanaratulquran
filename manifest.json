@@ -1,8 +1,8 @@
 {
   "name": "eManaratulQur'an",
   "short_name": "eManaratul",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0D3B26",
