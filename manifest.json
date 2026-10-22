@@ -1,14 +1,63 @@
 {
   "name": "eManaratulQur'an",
-  "short_name": "eManaratul",
-  "start_url": "./",
-  "scope": "./",
+  "short_name": "eManarul",
+  "description": "Sistem Informasi Pesantren eManaratulQur'an",
+  "start_url": "/emanaratulquran/",
+  "scope": "/emanaratulquran/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0D3B26",
+  "background_color": "#F3F7F4",
   "theme_color": "#1F8A52",
+  "lang": "id",
+  "dir": "ltr",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "/emanaratulquran/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/emanaratulquran/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/emanaratulquran/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/emanaratulquran/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/emanaratulquran/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/emanaratulquran/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/emanaratulquran/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/emanaratulquran/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }
