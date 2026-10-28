@@ -1,27 +1,52 @@
 {
-  "name": "eManaratulQur'an",
+  "id": "/emanaratulquran/",
+  "name": "eManaratulQur'an — Sistem Informasi Pesantren",
   "short_name": "eManarul",
-  "description": "Sistem Informasi Pesantren eManaratulQur'an",
-  "start_url": "/emanaratulquran/",
-  "scope": "/emanaratulquran/",
+  "description": "Sistem Informasi Manajemen Pondok Pesantren Manaratul Qur'an",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#F3F7F4",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "any",
+  "background_color": "#0D3B26",
   "theme_color": "#1F8A52",
   "lang": "id",
   "dir": "ltr",
+  "categories": ["education", "productivity"],
+  "prefer_related_applications": false,
   "icons": [
     {
-      "src": "https://lh3.googleusercontent.com/d/1Q-vMQhLnagoUTztxhyT7Jq2gxT7Oq1cv",
+      "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "https://lh3.googleusercontent.com/d/1Q-vMQhLnagoUTztxhyT7Jq2gxT7Oq1cv",
+      "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./screenshot-mobile.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Dashboard eManaratulQur'an"
     }
   ]
 }
