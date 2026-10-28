@@ -2,47 +2,200 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
   <title>eManaratulQur'an — Sistem Informasi Pesantren</title>
+
+  <!-- PWA / Install -->
   <meta name="theme-color" content="#1F8A52">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="eManaratulQur'an">
+  <meta name="application-name" content="eManaratulQur'an">
+  <meta name="description" content="Sistem Informasi Manajemen Pondok Pesantren Manaratul Qur'an">
+
+  <link rel="manifest" href="./manifest.json">
   <link rel="icon" type="image/png" href="./icon-192.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
+
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     html, body {
-      margin: 0; padding: 0; height: 100%; overflow: hidden;
-      background: linear-gradient(135deg, #0D3B26 0%, #125C33 50%, #1F8A52 100%);
-      font-family: system-ui, -apple-system, sans-serif;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(160deg, #0D3B26 0%, #125C33 45%, #1F8A52 100%);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
+
     iframe {
-      width: 100%; height: 100vh; border: none; display: block;
-      position: fixed; inset: 0;
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      border: none;
+      display: block;
+      position: fixed;
+      inset: 0;
     }
+
+    /* ===== LOADER — rata tengah sempurna ===== */
     .loader {
-      position: fixed; inset: 0; display: flex; align-items: center;
-      justify-content: center; flex-direction: column; gap: 16px;
-      background: linear-gradient(135deg, #0D3B26 0%, #125C33 50%, #1F8A52 100%);
-      color: #fff; z-index: 10;
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      padding-bottom: max(24px, env(safe-area-inset-bottom));
+      background: linear-gradient(160deg, #0D3B26 0%, #125C33 45%, #1F8A52 100%);
+      color: #fff;
+      transition: opacity 0.45s ease, visibility 0.45s ease;
     }
-    .spinner {
-      width: 44px; height: 44px;
-      border: 3px solid rgba(201,162,74,0.25);
-      border-top-color: #C9A24A; border-radius: 50%;
-      animation: spin 0.9s linear infinite;
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .loader.hidden { opacity: 0; pointer-events: none; transition: opacity 0.4s; }
-    .brand { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
-    .sub { font-size: 10px; color: #C9A24A; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-top: 4px; }
+
+    .loader-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      max-width: 280px;
+      gap: 0;
+    }
+
+    /* Ikon: dasar putih, tanpa bingkai, padding 0 */
+    .app-icon-wrap {
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      background: #ffffff;
+      padding: 3px;
+      border: none;
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.32);
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      animation: iconIn 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+    }
+    .app-icon-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 22px;
+      background: #ffffff;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      line-height: 1.25;
+      color: #fff;
+      text-align: center;
+      margin: 0 0 6px;
+      animation: fadeUp 0.5s 0.08s both;
+    }
+    .sub {
+      font-size: 10px;
+      color: #C9A24A;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-align: center;
+      margin: 0 0 28px;
+      animation: fadeUp 0.5s 0.12s both;
+    }
+
+    /* Loading gaya Windows 11 — 8 titik berputar */
+    .win-loader {
+      --size: 40px;
+      width: var(--size);
+      height: var(--size);
+      position: relative;
+      margin: 0 auto 16px;
+      flex-shrink: 0;
+      animation: winSpin 1.2s linear infinite;
+    }
+    .win-loader span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      margin: -3px 0 0 -3px;
+      border-radius: 50%;
+      background: #C9A24A;
+    }
+    .win-loader span:nth-child(1) { transform: rotate(0deg) translateY(-15px); opacity: 1; }
+    .win-loader span:nth-child(2) { transform: rotate(45deg) translateY(-15px); opacity: 0.85; }
+    .win-loader span:nth-child(3) { transform: rotate(90deg) translateY(-15px); opacity: 0.7; }
+    .win-loader span:nth-child(4) { transform: rotate(135deg) translateY(-15px); opacity: 0.55; }
+    .win-loader span:nth-child(5) { transform: rotate(180deg) translateY(-15px); opacity: 0.4; }
+    .win-loader span:nth-child(6) { transform: rotate(225deg) translateY(-15px); opacity: 0.28; }
+    .win-loader span:nth-child(7) { transform: rotate(270deg) translateY(-15px); opacity: 0.18; }
+    .win-loader span:nth-child(8) { transform: rotate(315deg) translateY(-15px); opacity: 0.1; }
+
+    @keyframes winSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .status {
+      font-family: "Segoe UI", "Segoe UI Variable", "Helvetica Neue", system-ui, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.15px;
+      color: rgba(255, 255, 255, 0.9);
+      text-align: center;
+      line-height: 1.45;
+      animation: fadeUp 0.5s 0.16s both;
+    }
+
+    @keyframes iconIn {
+      from { opacity: 0; transform: scale(0.82); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Layar sangat kecil */
+    @media (max-width: 360px) {
+      .app-icon-wrap { width: 84px; height: 84px; border-radius: 20px; }
+      .app-icon-wrap img { border-radius: 17.5px; }
+      .brand { font-size: 17px; }
+    }
   </style>
 </head>
 <body>
-  <div class="loader" id="loader">
-    <div class="spinner"></div>
-    <div>
-      <div class="brand">eManaratulQur'an</div>
-      <div class="sub">Sistem Informasi</div>
+  <div class="loader" id="loader" role="status" aria-live="polite">
+    <div class="loader-inner">
+      <div class="app-icon-wrap">
+        <img
+          src="./icon-192.png"
+          alt="Logo eManaratulQur'an"
+          width="96"
+          height="96"
+          onerror="this.onerror=null;this.src='https://lh3.googleusercontent.com/d/1Q-vMQhLnagoUTztxhyT7Jq2gxT7Oq1cv';">
+      </div>
+      <h1 class="brand">eManaratulQur'an</h1>
+      <p class="sub">Sistem Informasi</p>
+      <div class="win-loader" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <p class="status">Memuat aplikasi…</p>
     </div>
-    <div style="font-size:12px;opacity:0.7;margin-top:8px;">Memuat aplikasi...</div>
   </div>
 
   <iframe
@@ -58,13 +211,36 @@
     var frame = document.getElementById('appFrame');
     var loader = document.getElementById('loader');
 
-    // Sembunyikan loader saat iframe selesai load
-    frame.addEventListener('load', function() {
-      setTimeout(function() { loader.classList.add('hidden'); }, 400);
-    });
+    function hideLoader() {
+      if (loader) loader.classList.add('hidden');
+    }
 
-    // Fallback: paksa sembunyikan loader setelah 10 detik
-    setTimeout(function() { loader.classList.add('hidden'); }, 10000);
+    frame.addEventListener('load', function() {
+      setTimeout(hideLoader, 450);
+    });
+    setTimeout(hideLoader, 10000);
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./service-worker.js', { scope: './' })
+          .then(function(reg) {
+            console.log('[PWA] Service Worker terdaftar:', reg.scope);
+          })
+          .catch(function(err) {
+            console.warn('[PWA] Gagal daftar SW:', err);
+          });
+      });
+    }
+
+    var deferredPrompt = null;
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log('[PWA] beforeinstallprompt siap');
+    });
+    window.addEventListener('appinstalled', function() {
+      deferredPrompt = null;
+    });
   </script>
 </body>
 </html>
