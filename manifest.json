@@ -1,7 +1,7 @@
 {
   "id": "/emanaratulquran/",
   "name": "eManaratulQur'an — Sistem Informasi Pesantren",
-  "short_name": "eManarul",
+  "short_name": "ePPMQ",
   "description": "Sistem Informasi Manajemen Pondok Pesantren Manaratul Qur'an",
   "start_url": "./index.html",
   "scope": "./",
