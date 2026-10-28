@@ -4,63 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>eManaratulQur'an — Sistem Informasi Pesantren</title>
-  <meta name="description" content="Sistem Informasi Manajemen Pondok Pesantren Manaratul Qur'an">
-  <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#1F8A52">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="eManaratulQur'an">
-  <link rel="apple-touch-icon" href="./icon-192.png">
   <link rel="icon" type="image/png" href="./icon-192.png">
-
-  <script>
-    // Langsung ke Web App (Apps Script tidak boleh di-iframe)
-    var APP_URL = "https://script.google.com/macros/s/AKfycbzW-Lj0CiMrCh2qTTIsHCRricsk_Fx5feGohiYUMP1Rkg4majC8-N3ClBrsGfkA9XoIRQ/exec";
-    location.replace(APP_URL);
-  </script>
-
+  <link rel="apple-touch-icon" href="./icon-192.png">
   <style>
     html, body {
-      margin: 0; padding: 0; min-height: 100%;
+      margin: 0; padding: 0; height: 100%; overflow: hidden;
+      background: #0D3B26;
+    }
+    iframe {
+      width: 100%; height: 100vh; border: none; display: block;
+    }
+    .loader {
+      position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
       background: linear-gradient(135deg, #0D3B26 0%, #125C33 50%, #1F8A52 100%);
-      font-family: system-ui, -apple-system, sans-serif;
-      color: #fff;
+      color: #fff; font-family: system-ui, sans-serif; z-index: 10;
+      flex-direction: column; gap: 16px;
     }
-    .wrap {
-      min-height: 100vh; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; padding: 24px; text-align: center;
+    .spinner {
+      width: 44px; height: 44px;
+      border: 3px solid rgba(201,162,74,0.25);
+      border-top-color: #C9A24A; border-radius: 50%;
+      animation: spin 0.9s linear infinite;
     }
-    img {
-      width: 100px; height: 100px; object-fit: contain; margin-bottom: 20px;
-      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.3));
-    }
-    .name { font-size: 20px; font-weight: 800; letter-spacing: -0.4px; }
-    .sub {
-      font-size: 11px; color: #C9A24A; letter-spacing: 2px;
-      text-transform: uppercase; margin-top: 4px; font-weight: 700;
-    }
-    .btn {
-      margin-top: 28px; display: inline-block;
-      padding: 12px 28px; border-radius: 999px;
-      background: #C9A24A; color: #0D3B26; font-weight: 800;
-      text-decoration: none; font-size: 14px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-    }
-    .btn:hover { filter: brightness(1.05); }
-    .hint { margin-top: 16px; font-size: 12px; opacity: 0.75; max-width: 320px; line-height: 1.5; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loader.hidden { display: none; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <img src="./icon-512.png" alt="Logo" onerror="this.style.display='none'">
-    <div class="name">eManaratulQur'an</div>
-    <div class="sub">Sistem Informasi</div>
-    <a class="btn" id="openApp"
-       href="https://script.google.com/macros/s/AKfycbzW-Lj0CiMrCh2qTTIsHCRricsk_Fx5feGohiYUMP1Rkg4majC8-N3ClBrsGfkA9XoIRQ/exec">
-      Buka Aplikasi
-    </a>
-    <p class="hint">Jika tidak berpindah otomatis, ketuk tombol di atas.</p>
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
+    <div style="font-weight:600;font-size:14px;">Memuat aplikasi...</div>
   </div>
+  <iframe id="appFrame"
+    src="https://script.google.com/macros/s/AKfycbzW-Lj0CiMrCh2qTTIsHCRricsk_Fx5feGohiYUMP1Rkg4majC8-N3ClBrsGfkA9XoIRQ/exec"
+    allow="clipboard-write; clipboard-read; fullscreen"
+    referrerpolicy="no-referrer-when-downgrade"
+    title="eManaratulQur'an">
+  </iframe>
+  <script>
+    var frame = document.getElementById('appFrame');
+    var loader = document.getElementById('loader');
+    // Sembunyikan loader setelah iframe selesai load
+    frame.addEventListener('load', function() {
+      setTimeout(function() {
+        loader.classList.add('hidden');
+      }, 500);
+    });
+    // Fallback: sembunyikan loader setelah 8 detik (jika load event tidak terpanggil)
+    setTimeout(function() {
+      loader.classList.add('hidden');
+    }, 8000);
+  </script>
 </body>
 </html>
