@@ -13,52 +13,54 @@
   <meta name="apple-mobile-web-app-title" content="eManaratulQur'an">
   <link rel="apple-touch-icon" href="./icon-192.png">
   <link rel="icon" type="image/png" href="./icon-192.png">
+
+  <script>
+    // Langsung ke Web App (Apps Script tidak boleh di-iframe)
+    var APP_URL = "https://script.google.com/macros/s/AKfycbzW-Lj0CiMrCh2qTTIsHCRricsk_Fx5feGohiYUMP1Rkg4majC8-N3ClBrsGfkA9XoIRQ/exec";
+    location.replace(APP_URL);
+  </script>
+
   <style>
-    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #0D3B26; }
-    iframe { display: block; width: 100%; height: 100%; border: none; }
-    #loader {
-      position: fixed; inset: 0; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+    html, body {
+      margin: 0; padding: 0; min-height: 100%;
       background: linear-gradient(135deg, #0D3B26 0%, #125C33 50%, #1F8A52 100%);
-      z-index: 9999; transition: opacity 0.4s ease;
-      font-family: system-ui, -apple-system, sans-serif; color: #fff;
+      font-family: system-ui, -apple-system, sans-serif;
+      color: #fff;
     }
-    #loader.hidden { opacity: 0; pointer-events: none; }
-    #loader img { width: 100px; height: 100px; object-fit: contain; margin-bottom: 20px;
-      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.3)); animation: pulse 1.6s ease-in-out infinite; }
-    #loader .name { font-size: 20px; font-weight: 800; letter-spacing: -0.4px; }
-    #loader .sub { font-size: 11px; color: #C9A24A; letter-spacing: 2px; text-transform: uppercase;
-      margin-top: 4px; font-weight: 700; }
-    #loader .spinner { margin-top: 24px; width: 32px; height: 32px;
-      border: 3px solid rgba(255,255,255,0.2); border-top-color: #C9A24A;
-      border-radius: 50%; animation: spin 0.9s linear infinite; }
-    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .wrap {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 24px; text-align: center;
+    }
+    img {
+      width: 100px; height: 100px; object-fit: contain; margin-bottom: 20px;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.3));
+    }
+    .name { font-size: 20px; font-weight: 800; letter-spacing: -0.4px; }
+    .sub {
+      font-size: 11px; color: #C9A24A; letter-spacing: 2px;
+      text-transform: uppercase; margin-top: 4px; font-weight: 700;
+    }
+    .btn {
+      margin-top: 28px; display: inline-block;
+      padding: 12px 28px; border-radius: 999px;
+      background: #C9A24A; color: #0D3B26; font-weight: 800;
+      text-decoration: none; font-size: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .btn:hover { filter: brightness(1.05); }
+    .hint { margin-top: 16px; font-size: 12px; opacity: 0.75; max-width: 320px; line-height: 1.5; }
   </style>
 </head>
 <body>
-  <div id="loader">
-    <img src="./icon-512.png" alt="Logo">
+  <div class="wrap">
+    <img src="./icon-512.png" alt="Logo" onerror="this.style.display='none'">
     <div class="name">eManaratulQur'an</div>
     <div class="sub">Sistem Informasi</div>
-    <div class="spinner"></div>
+    <a class="btn" id="openApp"
+       href="https://script.google.com/macros/s/AKfycbzW-Lj0CiMrCh2qTTIsHCRricsk_Fx5feGohiYUMP1Rkg4majC8-N3ClBrsGfkA9XoIRQ/exec">
+      Buka Aplikasi
+    </a>
+    <p class="hint">Jika tidak berpindah otomatis, ketuk tombol di atas.</p>
   </div>
-
-  <iframe
-    id="appFrame"
-    src="https://script.google.com/macros/s/AKfycbzW-Lj0CiMrCh2qTTIsHCRricsk_Fx5feGohiYUMP1Rkg4majC8-N3ClBrsGfkA9XoIRQ/exec"
-    allow="fullscreen; clipboard-read; clipboard-write"
-    referrerpolicy="no-referrer-when-downgrade"
-    onload="document.getElementById('loader').classList.add('hidden');">
-  </iframe>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js', { scope: './' })
-          .catch(err => console.warn('Service Worker gagal didaftarkan:', err));
-      });
-    }
-  </script>
 </body>
 </html>
