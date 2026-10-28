@@ -10,16 +10,18 @@
   <style>
     html, body {
       margin: 0; padding: 0; height: 100%; overflow: hidden;
-      background: #0D3B26;
+      background: linear-gradient(135deg, #0D3B26 0%, #125C33 50%, #1F8A52 100%);
+      font-family: system-ui, -apple-system, sans-serif;
     }
     iframe {
       width: 100%; height: 100vh; border: none; display: block;
+      position: fixed; inset: 0;
     }
     .loader {
-      position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+      position: fixed; inset: 0; display: flex; align-items: center;
+      justify-content: center; flex-direction: column; gap: 16px;
       background: linear-gradient(135deg, #0D3B26 0%, #125C33 50%, #1F8A52 100%);
-      color: #fff; font-family: system-ui, sans-serif; z-index: 10;
-      flex-direction: column; gap: 16px;
+      color: #fff; z-index: 10;
     }
     .spinner {
       width: 44px; height: 44px;
@@ -28,33 +30,41 @@
       animation: spin 0.9s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .loader.hidden { display: none; }
+    .loader.hidden { opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+    .brand { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
+    .sub { font-size: 10px; color: #C9A24A; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-top: 4px; }
   </style>
 </head>
 <body>
   <div class="loader" id="loader">
     <div class="spinner"></div>
-    <div style="font-weight:600;font-size:14px;">Memuat aplikasi...</div>
+    <div>
+      <div class="brand">eManaratulQur'an</div>
+      <div class="sub">Sistem Informasi</div>
+    </div>
+    <div style="font-size:12px;opacity:0.7;margin-top:8px;">Memuat aplikasi...</div>
   </div>
-  <iframe id="appFrame"
+
+  <iframe
+    id="appFrame"
     src="https://script.google.com/macros/s/AKfycbzW-Lj0CiMrCh2qTTIsHCRricsk_Fx5feGohiYUMP1Rkg4majC8-N3ClBrsGfkA9XoIRQ/exec"
-    allow="clipboard-write; clipboard-read; fullscreen"
+    allow="clipboard-write; clipboard-read; fullscreen; camera; microphone; geolocation"
     referrerpolicy="no-referrer-when-downgrade"
-    title="eManaratulQur'an">
+    title="eManaratulQur'an"
+    loading="eager">
   </iframe>
+
   <script>
     var frame = document.getElementById('appFrame');
     var loader = document.getElementById('loader');
-    // Sembunyikan loader setelah iframe selesai load
+
+    // Sembunyikan loader saat iframe selesai load
     frame.addEventListener('load', function() {
-      setTimeout(function() {
-        loader.classList.add('hidden');
-      }, 500);
+      setTimeout(function() { loader.classList.add('hidden'); }, 400);
     });
-    // Fallback: sembunyikan loader setelah 8 detik (jika load event tidak terpanggil)
-    setTimeout(function() {
-      loader.classList.add('hidden');
-    }, 8000);
+
+    // Fallback: paksa sembunyikan loader setelah 10 detik
+    setTimeout(function() { loader.classList.add('hidden'); }, 10000);
   </script>
 </body>
 </html>
