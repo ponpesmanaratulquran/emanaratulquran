@@ -1,12 +1,10 @@
 {
-  "id": "/emanaratulquran/",
   "name": "eManaratulQur'an — Sistem Informasi Pesantren",
   "short_name": "ePPMQ",
   "description": "Sistem Informasi Manajemen Pondok Pesantren Manaratul Qur'an",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui", "browser"],
   "orientation": "any",
   "background_color": "#0D3B26",
   "theme_color": "#1F8A52",
@@ -38,15 +36,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "./screenshot-mobile.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Dashboard eManaratulQur'an"
     }
   ]
 }
