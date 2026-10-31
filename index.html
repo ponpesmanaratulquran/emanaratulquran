@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
   <title>eManaratulQur'an — Sistem Informasi Pesantren</title>
-
-  <!-- PWA / Install -->
   <meta name="theme-color" content="#1F8A52">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -13,14 +11,14 @@
   <meta name="apple-mobile-web-app-title" content="eManaratulQur'an">
   <meta name="application-name" content="eManaratulQur'an">
   <meta name="description" content="Sistem Informasi Manajemen Pondok Pesantren Manaratul Qur'an">
-
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" type="image/png" href="./icon-192.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html, body {
       height: 100%;
       overflow: hidden;
@@ -28,7 +26,6 @@
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
-
     iframe {
       width: 100%;
       height: 100%;
@@ -38,8 +35,6 @@
       position: fixed;
       inset: 0;
     }
-
-    /* ===== LOADER — rata tengah sempurna ===== */
     .loader {
       position: fixed;
       inset: 0;
@@ -58,7 +53,6 @@
       visibility: hidden;
       pointer-events: none;
     }
-
     .loader-inner {
       display: flex;
       flex-direction: column;
@@ -67,17 +61,13 @@
       text-align: center;
       width: 100%;
       max-width: 280px;
-      gap: 0;
     }
-
-    /* Ikon: dasar putih, tanpa bingkai, padding 0 */
     .app-icon-wrap {
       width: 96px;
       height: 96px;
       border-radius: 22px;
       background: #ffffff;
       padding: 3px;
-      border: none;
       box-shadow: 0 10px 32px rgba(0, 0, 0, 0.32);
       margin-bottom: 22px;
       display: flex;
@@ -94,14 +84,12 @@
       border-radius: 22px;
       background: #ffffff;
     }
-
     .brand {
       font-size: 20px;
       font-weight: 800;
       letter-spacing: -0.4px;
       line-height: 1.25;
       color: #fff;
-      text-align: center;
       margin: 0 0 6px;
       animation: fadeUp 0.5s 0.08s both;
     }
@@ -111,19 +99,15 @@
       letter-spacing: 2.2px;
       text-transform: uppercase;
       font-weight: 700;
-      text-align: center;
       margin: 0 0 28px;
       animation: fadeUp 0.5s 0.12s both;
     }
-
-    /* Loading gaya Windows 11 — 8 titik berputar */
     .win-loader {
       --size: 40px;
       width: var(--size);
       height: var(--size);
       position: relative;
       margin: 0 auto 16px;
-      flex-shrink: 0;
       animation: winSpin 1.2s linear infinite;
     }
     .win-loader span {
@@ -144,22 +128,14 @@
     .win-loader span:nth-child(6) { transform: rotate(225deg) translateY(-15px); opacity: 0.28; }
     .win-loader span:nth-child(7) { transform: rotate(270deg) translateY(-15px); opacity: 0.18; }
     .win-loader span:nth-child(8) { transform: rotate(315deg) translateY(-15px); opacity: 0.1; }
-
-    @keyframes winSpin {
-      to { transform: rotate(360deg); }
-    }
-
+    @keyframes winSpin { to { transform: rotate(360deg); } }
     .status {
-      font-family: "Segoe UI", "Segoe UI Variable", "Helvetica Neue", system-ui, sans-serif;
       font-size: 13px;
       font-weight: 400;
       letter-spacing: 0.15px;
       color: rgba(255, 255, 255, 0.9);
-      text-align: center;
-      line-height: 1.45;
       animation: fadeUp 0.5s 0.16s both;
     }
-
     @keyframes iconIn {
       from { opacity: 0; transform: scale(0.82); }
       to   { opacity: 1; transform: scale(1); }
@@ -168,8 +144,6 @@
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
-    /* Layar sangat kecil */
     @media (max-width: 360px) {
       .app-icon-wrap { width: 84px; height: 84px; border-radius: 20px; }
       .app-icon-wrap img { border-radius: 17.5px; }
@@ -200,7 +174,7 @@
 
   <iframe
     id="appFrame"
-    src="https://script.google.com/macros/s/AKfycbzW-Lj0CiMrCh2qTTIsHCRricsk_Fx5feGohiYUMP1Rkg4majC8-N3ClBrsGfkA9XoIRQ/exec"
+    src="about:blank"
     allow="clipboard-write; clipboard-read; fullscreen; camera; microphone; geolocation"
     referrerpolicy="no-referrer-when-downgrade"
     title="eManaratulQur'an"
@@ -208,6 +182,7 @@
   </iframe>
 
   <script>
+    var GAS_URL = 'https://script.google.com/macros/s/AKfycbzW-Lj0CiMrCh2qTTIsHCRricsk_Fx5feGohiYUMP1Rkg4majC8-N3ClBrsGfkA9XoIRQ/exec';
     var frame = document.getElementById('appFrame');
     var loader = document.getElementById('loader');
 
@@ -215,32 +190,47 @@
       if (loader) loader.classList.add('hidden');
     }
 
-    frame.addEventListener('load', function() {
-      setTimeout(hideLoader, 450);
+    function loadLatestApp() {
+      frame.src = GAS_URL + '?t=' + Date.now();
+    }
+
+    async function clearCaches() {
+      try {
+        if ('caches' in window) {
+          var keys = await caches.keys();
+          await Promise.all(keys.map(function (k) { return caches.delete(k); }));
+        }
+      } catch (e) {}
+    }
+
+    (async function () {
+      await clearCaches();
+      loadLatestApp();
+    })();
+
+    frame.addEventListener('load', function () {
+      setTimeout(hideLoader, 400);
     });
     setTimeout(hideLoader, 10000);
 
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') {
+        clearCaches().then(loadLatestApp);
+      }
+    });
+
+    window.addEventListener('pagehide', function () {
+      clearCaches();
+    });
+
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
+      window.addEventListener('load', function () {
         navigator.serviceWorker.register('./service-worker.js', { scope: './' })
-          .then(function(reg) {
-            console.log('[PWA] Service Worker terdaftar:', reg.scope);
-          })
-          .catch(function(err) {
-            console.warn('[PWA] Gagal daftar SW:', err);
+          .catch(function (err) {
+            console.warn('[PWA] SW:', err);
           });
       });
     }
-
-    var deferredPrompt = null;
-    window.addEventListener('beforeinstallprompt', function(e) {
-      e.preventDefault();
-      deferredPrompt = e;
-      console.log('[PWA] beforeinstallprompt siap');
-    });
-    window.addEventListener('appinstalled', function() {
-      deferredPrompt = null;
-    });
   </script>
 </body>
 </html>
